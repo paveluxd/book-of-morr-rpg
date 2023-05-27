@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    function dice(maxVal, minVal){
+        if(minVal === undefined){minVal=1}
+        return Math.floor(Math.random() * maxVal) + minVal
+    }
+
+    let refVal = 3
+
+    function loot(itemQuant){
+        let lootList = ''
+        let objKeys = Object.keys(itemsJson) //array
+
+        for (i = 0; i < objKeys.length; i++) {
+            let itemGrouKeys = Object.keys(itemsJson[objKeys[i]])
+
+            for (f = 0; f < itemGrouKeys.length; f++) {
+                let itemObj = itemsJson[objKeys[i]][itemGrouKeys[f]]
+                let itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
+                lootList += `${itemName} - ${itemObj.desc}.\n`
+                
+            }
+            
+            // console.log(
+                //     itemGrouKeys
+                // )
+            }
+
+        //Get keys
+        //Suggle keys
+        //Construct response
+
+        console.log(lootList);
+    }
+
+    console.log(dice(4));
+
+    let itemsJson = {
+        //WEAPONS
+        "weapons":{
+            "sword":{
+                name: "sword", type: 'weapon', 
+                desc: 'attacks with this weapon deal 1 more damage', 
+            },
+            "mace":{
+                name: "mace", type: 'weapon', 
+                desc: 'stun the target if this is the 1st you use this in combat',             
+            },
+            "dagger pair":{
+                name: "dagger pair", type: 'weapon',
+                desc: 'hits twice',
+            },
+            "flail":{
+                name: "flail", type: 'weapon',
+                desc: "This weapon attacks can't be evaded",
+            },
+            "axe":{
+                name: "axe", type: 'weapon',
+                desc: "hits also damage adjacent enemies",
+            },
+            "hammer":{
+                name: "hammer", type: 'weapon',
+                desc: "reduce target def by 1 on hit. Can reduce def below 0",
+            },
+            "halberd":{
+                name: "halberd", type: 'weapon',
+                desc: "deals 1 extra damage per turn where you haven't dealt damage",
+            }, 
+            "three blades":{
+                name: "three blades", type: 'weapon',
+                desc: "hits three times, hits can't deal more than 1 dmg",
+            },
+            "morgenstern":{
+                name: "morgenstern", type: 'weapon',
+                desc: "silence the target during this turn on hit",
+            },
+            "bow":{
+                name: "bow", type: 'weapon',
+                desc: "avoid melee damage when you attack with this",
+            },
+            "long bow":{
+                name: "long bow", type: 'weapon',
+                desc: "roll d6 before the combat, long bow deals damage equal to your roll",
+            },
+            "x-bow":{
+                name: "x-bow", type: 'weapon',
+                desc: "attacks with this weapon ignore def, requires 2 actions to attack",
+            },
+            "torch":{
+                name: "torch", type: 'weapon',
+                desc: "on hit, set enemy on fire.",
+            },
+            "wooden staff":{
+                name: "wooden staff", type: 'weapon',
+                desc: "recover 1 power",
+            },
+            "iron staff":{
+                name: "iron staff", type: 'weapon',
+                desc: "recover 2 power, deal no dmg for the next two turns",
+            },
+            "claymore":{
+                name: "claymore", type: 'weapon',
+                desc: "deals 10 extra damage, roll dice before attack, reduce damage by the roll value",
+            },
+            "blood cleaver":{
+                name: "blood cleaver", type: 'weapon',
+                desc: "on first hit, target looses half of their life",
+            },
+            "sacrificial knife":{
+                name: "sacrificial knife", type: 'weapon',
+                desc: "execute targets below 25% life, loose 1 life",
+            },
+            "black niddle":{
+                name: "black niddle", type: 'weapon',
+                desc: "execute targets below 25% life, loose 1 life",
+            },
+            
+        },
+
+        //OFFHANDS
+        "offhand":{
+            "shield":{
+                name: "shield", type: 'weapon',
+                desc: 'use it to reduce incomming damage by 50%',
+            },
+        },
+
+        //EQUIPMENT
+        "equipment":{
+            "chainmail":{
+                name: "chainmail", 
+                desc: 'gain 1 def and loose 5 magic trait',
+                type: 'weapon',
+            },
+        },
+
+        //Consumables
+        "consumable":{
+            "bandage":{
+                name: "bandage", type: 'consumable',
+                desc: `consume to restores ${refVal * 2} life`,
+            },
+            "bottle with water":{
+                name: "bottle of water", type: 'consumable',
+                desc: `consume to restores 1 power`,
+            },
+            "ale":{
+                name: "ale", type: 'consumable',
+                desc: `consume to make your next 3 rolls to be either 1 or 20.`,
+            },
+            "food":{
+                name: "food", type: 'consumable',
+                desc: `consume to Restores your stats to default values, can't be used in combat.`,
+            },
+            "bottle with poison":{
+                name: "food", type: 'consumable',
+                desc: `contains poison`,
+            },
+            "smoke bomb":{
+                name: "smoke bomb", type: 'consumable',
+                desc: `explodes when thrown creating a 3 square meter cloud of smoke`,
+            },
+            "gas bomb":{
+                name: "gas bomb", type: 'consumable',
+                desc: `applies 1 poison to all targets in the area.`,
+            },
+            "small crystal":{
+                name: "small crystal", type: 'consumable',
+                desc: `consume to add d6 to your next dice roll`,
+            },
+            "crystal":{
+                name: "small crystal", type: 'consumable',
+                desc: `consume to add d10 to your next dice roll`,
+            },
+            "large crystal":{
+                name: "small crystal", type: 'consumable',
+                desc: `consume to add d20 to your next dice roll`,
+            },
+            "small jewel":{
+                name: "small crystal", type: 'consumable',
+                desc: `consume to roll d4 instead of default dice for your next dice roll`,
+            },
+            "jewel":{
+                name: "small crystal", type: 'consumable',
+                desc: `consume to roll d10 instead of default dice for your next dice roll`,
+            },
+            "large jewel":{
+                name: "small crystal", type: 'consumable',
+                desc: `consume to roll d20 instead of default dice for your next dice roll`,
+            },
+            "broken coin":{
+                name: "broken coin", type: 'consumable',
+                desc: `consume to roll d2 instead of default dice for your next dice roll`,
+            },
+        }
+    }
+</script>
+</html>
