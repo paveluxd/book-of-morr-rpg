@@ -7,47 +7,59 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <button onclick="rLoot(21)">Loot</button>
+    <p id="items"></p>
 </body>
 
 <script>
-    function dice(maxVal, minVal){
+    function rng(maxVal, minVal){
         if(minVal === undefined){minVal=1}
         return Math.floor(Math.random() * maxVal) + minVal
     }
-
-    let refVal = 3
-
-    function loot(itemQuant){
-        let lootList = ''
-        let objKeys = Object.keys(itemsJson) //array
-
-        for (i = 0; i < objKeys.length; i++) {
-            let itemGrouKeys = Object.keys(itemsJson[objKeys[i]])
-
-            for (f = 0; f < itemGrouKeys.length; f++) {
-                let itemObj = itemsJson[objKeys[i]][itemGrouKeys[f]]
-                let itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
-                lootList += `${itemName} - ${itemObj.desc}.\n`
-                
-            }
-            
-            // console.log(
-                //     itemGrouKeys
-                // )
-            }
-
-        //Get keys
-        //Suggle keys
-        //Construct response
-
-        console.log(lootList);
+    function rarr(arr){
+        return arr[Math.floor(Math.random() * arr.length)]
     }
 
-    console.log(dice(4));
+    //Vars
+    let lootList
+    let refVal = 3
+    let refRarity = 1
 
+    let magicSchools = [
+        'Sun',
+        'Moon',
+        'Life',
+        'Chaos',
+        'Death'
+    ]
+    let materials = [
+        'stone',
+        'wood',
+        'iron',
+        'coal'
+    ]
+    let plants = [
+        `${rng(3)}xsnake grass`,
+        `${rng(3)}xrose`
+    ]
+    let eadables = [
+        'orange mushroom',
+        'sunflower seeds',
+        'red berry']
+    let misc = [
+        'wood axe', 
+        'hammer',
+        'saw',
+        `rope(${rng(15)}m)`,
+        'grapling hook(${rng(15)}m)',
+        'wooden bucket','iron chain',
+        `${rng(8)}x iron nails`,
+        `${rng(8)}x paper sheets`,
+        `book`
+    ]
+ 
     let itemsJson = {
-        //WEAPONS
+        //Weapons
         "weapons":{
             "sword":{
                 name: "sword", type: 'weapon', 
@@ -128,82 +140,219 @@
             
         },
 
-        //OFFHANDS
+        //Offhands
         "offhand":{
             "shield":{
-                name: "shield", type: 'weapon',
+                name: "shield", type: 'offhand',
                 desc: 'use it to reduce incomming damage by 50%',
             },
+            "wooden shiled":{
+                name: "wooden shiled", type: 'offhand',
+                desc: 'reduce incoming damage by 3',
+            },
+            "buckler":{
+                name: "buckler", type: 'offhand',
+                desc: 'roll dice on use, if roll is less than 11 this item redirects attacks back at the enemy',
+            },
+            "great shiled":{
+                name: "great shiled", type: 'offhand',
+                desc: 'reduce incoming dmg by 50%, all enemies target you',
+            },
+
+            "War banner":{
+                name: "war banner", type: 'offhand',
+                desc: 'on first use, allies gain 1 power.',
+            },
+            "war horn":{
+                name: "war banner", type: 'offhand',
+                desc: 'On 1st use, allies gain 1 def, all enemies target you',
+            },
+            "blood talisman":{
+                name: "blood talisman", type: 'offhand',
+                desc: 'skip turn, for the next two turns gain 2 life when you attack',
+            },
+            "cursed skull":{
+                name: "cursed skull", type: 'offhand',
+                desc: 'choose a lesser undead, while you have the skull it becomes your servant',
+            },
+            "crystal ball":{
+                name: "cursed skull", type: 'offhand',
+                desc: 'roll dice on use if roll is below 11 gain 1 power, else loose 1 power',
+            },
+            "mirror shield":{
+                name: "mirror shield", type: 'offhand',
+                desc: 'On use reflect spell back at caster, roll dice, if 1 mirror shield shatters',
+            },
+            "magic book":{
+                name: `book of ${rarr(magicSchools)}`, type: 'offhand',
+                desc: 'pay 5 points of magic trait to unveil a spell'
+            }
+
         },
 
-        //EQUIPMENT
+        //Equipment
         "equipment":{
             "chainmail":{
-                name: "chainmail", 
-                desc: 'gain 1 def and loose 5 magic trait',
-                type: 'weapon',
+                name: "chainmail", type: 'equipment',
+                desc: 'gain 1 def, loose 5 magic trait',
+            },
+            "chainmail":{
+                name: "chainmail", type: 'equipment',
+                desc: 'gain 1 def, loose 5 magic trait',
+            },
+            "chainmail":{
+                name: "chainmail", type: 'equipment',
+                desc: 'gain 1 def, loose 5 magic trait',
             },
         },
 
         //Consumables
         "consumable":{
             "bandage":{
-                name: "bandage", type: 'consumable',
+                name: "bandage", type: 'consumable', rarity: refRarity,
                 desc: `consume to restores ${refVal * 2} life`,
             },
             "bottle with water":{
-                name: "bottle of water", type: 'consumable',
+                name: "bottle of water", type: 'consumable', rarity: refRarity,
                 desc: `consume to restores 1 power`,
             },
             "ale":{
-                name: "ale", type: 'consumable',
+                name: "ale", type: 'consumable', rarity: refRarity,
                 desc: `consume to make your next 3 rolls to be either 1 or 20.`,
             },
             "food":{
-                name: "food", type: 'consumable',
+                name: "food", type: 'consumable', rarity: refRarity,
                 desc: `consume to Restores your stats to default values, can't be used in combat.`,
             },
             "bottle with poison":{
-                name: "food", type: 'consumable',
+                name: "food", type: 'consumable', rarity: refRarity,
                 desc: `contains poison`,
             },
             "smoke bomb":{
-                name: "smoke bomb", type: 'consumable',
+                name: "smoke bomb", type: 'consumable', rarity: refRarity,
                 desc: `explodes when thrown creating a 3 square meter cloud of smoke`,
             },
             "gas bomb":{
-                name: "gas bomb", type: 'consumable',
+                name: "gas bomb", type: 'consumable', rarity: refRarity,
                 desc: `applies 1 poison to all targets in the area.`,
             },
             "small crystal":{
-                name: "small crystal", type: 'consumable',
+                name: "small crystal", type: 'consumable', rarity: refRarity,
                 desc: `consume to add d6 to your next dice roll`,
             },
             "crystal":{
-                name: "small crystal", type: 'consumable',
+                name: "crystal", type: 'consumable', rarity: refRarity,
                 desc: `consume to add d10 to your next dice roll`,
             },
             "large crystal":{
-                name: "small crystal", type: 'consumable',
+                name: "large crystal", type: 'consumable', rarity: refRarity,
                 desc: `consume to add d20 to your next dice roll`,
             },
             "small jewel":{
-                name: "small crystal", type: 'consumable',
+                name: "small jewel", type: 'consumable', rarity: refRarity,
                 desc: `consume to roll d4 instead of default dice for your next dice roll`,
             },
             "jewel":{
-                name: "small crystal", type: 'consumable',
+                name: "jewel", type: 'consumable', rarity: refRarity,
                 desc: `consume to roll d10 instead of default dice for your next dice roll`,
             },
             "large jewel":{
-                name: "small crystal", type: 'consumable',
+                name: "large jewel", type: 'consumable', rarity: refRarity,
                 desc: `consume to roll d20 instead of default dice for your next dice roll`,
             },
             "broken coin":{
-                name: "broken coin", type: 'consumable',
+                name: "broken coin", type: 'consumable', rarity: refRarity,
                 desc: `consume to roll d2 instead of default dice for your next dice roll`,
             },
+        },
+    
+        //Materials & misc
+        "materials":{
+            "materials":{
+                name: `${rarr(materials)}`, type: 'material', rarity: refRarity,
+                desc: `x${rng(3)}`,
+            },
+            "plants":{
+                name: `${rarr(plants)}`, type: 'material', rarity: refRarity,
+                desc: `x${rng(3)}`,
+            },
+            "eadalbes":{
+                name: `${rarr(eadables)}`, type: 'material', rarity: refRarity,
+                desc: `x${rng(3)}`,
+            },
+            "misc":{
+                name: `${rarr(misc)}`, type: 'material', rarity: refRarity,
+                desc: `enables certain actions`,
+            },
+        },
+
+        //Utility
+        "utility":{
+            "bag":{
+                name: "small bag", type: 'equipment',
+                desc: `provides ${rng(8, 3)} item slots (items in the bag don't provide passive effects)`,
+            },
+            "chainmail":{
+                name: "chainmail", type: 'equipment',
+                desc: 'gain 1 def, loose 5 magic trait',
+            },
+            "chainmail":{
+                name: "chainmail", type: 'equipment',
+                desc: 'gain 1 def, loose 5 magic trait',
+            },
+        },
+    }
+
+    //String creator
+    function loot(itemQuant){
+        lootList = ''
+        let objKeys = Object.keys(itemsJson) //array
+
+        for (i = 0; i < objKeys.length; i++) {
+            let itemGrouKeys = Object.keys(itemsJson[objKeys[i]])
+
+            for (f = 0; f < itemGrouKeys.length; f++) {
+                let itemObj = itemsJson[objKeys[i]][itemGrouKeys[f]]
+                let itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
+                lootList += `${itemName} - ${itemObj.desc}.\n<br>`          
+            }
         }
     }
+
+    function rLoot(itemQuant){
+        lootList = ''
+        let objKeys = Object.keys(itemsJson) //array
+
+        //total quant of items
+        if(itemQuant === undefined){itemQuant = 2}
+
+        for(i=0; i<itemQuant; i++){
+            let randomGroupKey = rarr(objKeys) //Random group key
+            let randomItemKey = rarr(Object.keys(itemsJson[randomGroupKey])) //Random item key
+
+            //Build format
+            let itemObj = itemsJson[randomGroupKey][randomItemKey]
+            // console.log(itemObj);
+            let itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
+            lootList += `${itemName} - ${itemObj.desc}.\n<br>`
+        }
+
+        document.getElementById('items').innerHTML = lootList
+    }
+
+    //Post items
+    loot()
+    document.getElementById('items').innerHTML = lootList
 </script>
+
+<style>
+    p{
+        font-family: sans-serif;
+        line-height: 140%;
+    }
+    body{
+        padding: 48px;
+        margin: 0;
+    }
+</style>
 </html>
