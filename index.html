@@ -349,9 +349,12 @@
     let dmgVal = Math.ceil(rng(refVal) * lvl)
     let enemyActions = {
         "attack":   {desc: `Will attack for ${dmgVal}`},
-        "crit":     {desc: `Will crit for ${dmgVal}`},
+        "crit":     {desc: `Will crit for ${dmgVal * 2}`},
+        "mega crit":{desc: `Will crit for ${dmgVal * 3} after this turn.`},
 
+        "spell":    {desc: `Will cast a <random spell>`},
         "buff":     {desc: `Will use <random buff spell>`},
+        "recover":  {desc: `Will recover lsot stats`},
         "debuff":   {desc: `Will use <random debuff spell>`},
 
         "wrestle":  {desc: `Will wrestle>`},
@@ -359,7 +362,9 @@
         "disarm":   {desc: `Will steal item used for next turn`}, 
         "recruits": {desc: `Will call reinforcements`},
         "command":  {desc: `Will redirect all attacks of other enemies on you`},
+        "consume":  {desc: `Enemy will consume a random consumable from targets inveentory.`},
 
+        "reflect":  {desc: `Will reflect any `},
         "escape":   {desc: `Will escape`}, 
     }
     console.log(enemyActions.attack.desc);
