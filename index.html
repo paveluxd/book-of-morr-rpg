@@ -333,6 +333,10 @@
                 name: "broken coin", type: 'consumable', rarity: refRarity,
                 desc: `consume to roll d2 instead of default dice for your next dice roll`,
             },
+            "Art book":{
+                name: "Art book", type: 'consumable', rarity: refRarity,
+                desc: `Unveil 3 random passives, add 1 to your character.`,
+            },
         },
     
         //Materials & misc
@@ -413,7 +417,7 @@
     function genEnemyActions(level){
         if(level ===undefined){level = document.getElementById('eneLvl').value} //Picks val from input
         let actionRoll = rng(100)
-        let enemyAc
+        let enemyAc = ''
         console.log(actionRoll);
         dmgVal = Math.ceil(rng(refVal/1.5) * level)
 
@@ -449,15 +453,15 @@
         let actionKeys = Object.keys(enemyActions) //Get keys
 
         //Pick action
-        if(actionRoll < 10){//1%
+        if(actionRoll < 20){//1%
             for(i=0; i<actionKeys.length; i++){
                 if(enemyActions[actionKeys[i]].rate === 1){
                     aAction.push(enemyActions[actionKeys[i]].desc)
                 }
             }
-            return rarr(aAction)
+            enemyAc = rarr(aAction)
         } 
-        else if (actionRoll < 30){//10%
+        else if (actionRoll < 40){//10%
             for(i=0; i<actionKeys.length; i++){
                 if(enemyActions[actionKeys[i]].rate === 2){
                     aAction.push(enemyActions[actionKeys[i]].desc)
@@ -465,7 +469,7 @@
             }
             enemyAc = rarr(aAction)
         } 
-        else if (actionRoll < 65){//30%
+        else if (actionRoll < 60){//30%
             for(i=0; i<actionKeys.length; i++){
                 if(enemyActions[actionKeys[i]].rate === 3){
                     aAction.push(enemyActions[actionKeys[i]].desc)
@@ -476,7 +480,7 @@
         else {
             enemyAc = enemyActions.attack.desc
         }
-
+        console.log(enemyAc);
         document.getElementById('enemy').innerHTML = `Enemy (0 life) &rarr; ${enemyAc}.`
     }
 </script>
