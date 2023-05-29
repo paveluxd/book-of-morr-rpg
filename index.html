@@ -9,7 +9,7 @@
 <body>
     <div style="display: flex; gap: 24px;">
         <div style="display: flex; flex-direction: column;">
-            <button onclick="rLoot(21)">Loot</button>
+            <button onclick="loot(20)">Loot</button>
             <p id="items"></p>
         </div>
         <div style="display: flex; flex-direction: column;">
@@ -21,12 +21,30 @@
 </body>
 
 <script>
-    function rng(maxVal, minVal){
+    //Utility functions
+    function rng(maxVal, minVal){//random number
         if(minVal === undefined){minVal=1}
         return Math.floor(Math.random() * maxVal) + minVal
     }
-    function rarr(arr){
+    function rarr(arr){//random arr item
         return arr[Math.floor(Math.random() * arr.length)]
+    }
+    function shuffle(array) {//suffle arr
+        let currentIndex = array.length,  randomIndex;
+
+        // While there remain elements to shuffle.
+        while (currentIndex != 0) {
+
+            // Pick a remaining element.
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+
+        return array;
     }
 
     //Vars
@@ -69,7 +87,6 @@
         `${rng(8)}x paper sheets`,
         `book`
     ]
- 
     let itemsJson = {
         //Weapons
         "weapons":{
@@ -208,18 +225,54 @@
 
         //Equipment
         "equipment":{
-            "chainmail":{
-                name: "chainmail", type: 'equipment',
-                desc: 'gain 1 def, loose 5 magic trait',
-            },
-            "chainmail":{
-                name: "chainmail", type: 'equipment',
-                desc: 'gain 1 def, loose 5 magic trait',
-            },
-            "chainmail":{
-                name: "chainmail", type: 'equipment',
-                desc: 'gain 1 def, loose 5 magic trait',
-            },
+          
+            //Tank fighter
+            "Plate armor"   :{desc:"Physical damage you take is capped at 3. -5 magic trait. You can't sneak or hide.", },
+            "Royal cape"    :{desc:"Gain 2 life per def.", name: "royal", type: 'equipment'},
+            "Plate helmet"  :{desc:"You can't be stunned. -2 magic trait.", },
+            "Plate gloves"  :{desc:"-", },
+            "Plate boots"   :{desc:"Add 1 def. You can't sneak or hide.", },
+            "Plate pants"   :{desc:"-", },
+            "Royal belt"    :{desc:"-", },
+
+            "Chainmail"     :{desc:"Add 1 def. -5 magic trait.", },
+            "Gambeson"      :{desc:"Add 5 life. -5 magic trait.", },
+            "Tabard"        :{desc:"Restore 6 life when you aree kncoked down the first time during the fight.", },
+            "Black plate"   :{desc:"At the start of the combat pay 2 max life to gain 3 def.", },
+
+            //Rogue ranger
+            "Leather jacket":{desc:"20% chance to dodge an attack. -2 magic trait.", },
+            "Leather cape"  :{desc:"+10 to stealth.", },
+            "Leather hat"   :{desc:"Poisons deal 2 damage per stack, you deal no physical dmg.", },
+            "Leather gloves":{desc:"+5 to theft.", },
+            "Leather boots" :{desc:"Adds combat action: Dodge an attack.", },
+            "Leather pants" :{desc:"First bow or x-bow attack hits an additional random target.", },
+            "Leather belt"  :{desc:"+3 slots for consumables", },
+
+            "Wool jacket"   :{desc:"If equipped: You can pick combat actions for two sequences.", },
+            "Dagger belt"   :{desc:"Roll d4, dagger attack ignore that much targets def.", },
+            "Potion harness":{desc:"+2 potion slots, uses random potion when character reaches 2 life during combat.", },
+            "Face mask"     :{desc:"Roll dice before the combat, if you rolled 1, you have 2 combat actions each turn.", },
+
+            //Mage
+            "Silk robe"     :{desc:"Gain 1 power, -2 max life", },
+            "Silk cape"     :{desc:"Gain 1 life per power after you canst a spell.", },
+            "Silk hat"      :{desc:"Gain 15 magic trait, -3 max life.", },
+            "Silk gloves"   :{desc:"You can use one scroll as an extra action during the combat.", },
+            "Silk boots"    :{desc:"Restore 2 life after you use a scroll.", },
+            "Silk pants"    :{desc:"When you uncover a spell in the spell book, you can choose from two options. -1 def.", },
+            "Silk belt"     :{desc:"If equipped:", },
+
+            //Healer
+            "Crown"         :{desc:"Gain 5 Holy magic, -2 life", },
+            "Purple robe"   :{desc:"Healing spells you cas heal for 1 more.", },
+            "Cloth belt"    :{desc:"Gain 1 power after you restored 5 life to other characters.", },
+
+            //Utility
+            "Mittens"       :{desc:"Gain 3 cold resistance", },
+            "Woolen cloak"  :{desc:"Reduce magic damage by 1.", },
+            "Purple robe"   :{desc:"5 to persuasion and charisma", },
+            "Thic mittens"  :{desc:"5 crafting", },
         },
 
         //Consumables
@@ -308,57 +361,47 @@
                 name: "small bag", type: 'equipment',
                 desc: `provides ${rng(8, 3)} item slots (items in the bag don't provide passive effects)`,
             },
-            "chainmail":{
-                name: "chainmail", type: 'equipment',
-                desc: 'gain 1 def, loose 5 magic trait',
-            },
-            "chainmail":{
-                name: "chainmail", type: 'equipment',
-                desc: 'gain 1 def, loose 5 magic trait',
-            },
         },
     }
 
     //String creator
     function loot(itemQuant){
-        lootList = ''
+        let allItemList = []
+        let lootList = ''
         let objKeys = Object.keys(itemsJson) //array
+        if(itemQuant === undefined){itemQuant = 20} //total quant of items
 
-        for (i = 0; i < objKeys.length; i++) {
-            let itemGrouKeys = Object.keys(itemsJson[objKeys[i]])
+        //Build all items
+        for(i=0;i<objKeys.length;i++){//check all groups
+            let itemKeys = Object.keys(itemsJson[objKeys[i]])//All item keys
+            for(ite=0; ite<itemKeys.length;ite++){//per every item
+                let itemObj = itemsJson[[objKeys[i]]][itemKeys[ite]]//choose item
 
-            for (f = 0; f < itemGrouKeys.length; f++) {
-                let itemObj = itemsJson[objKeys[i]][itemGrouKeys[f]]
-                let itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
-                lootList += `${itemName} - ${itemObj.desc}.\n<br>`          
+                let itemName = itemKeys[ite].charAt(0).toUpperCase() + itemKeys[ite].slice(1) //Capitalizes
+
+                if(itemObj.type === 'material'){ //If material use name parameter
+                    itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
+                }
+
+                allItemList.push(`${itemName} - ${itemObj.desc}.<br>`) //Build item label
             }
         }
-    }
 
-    function rLoot(itemQuant){
-        lootList = ''
-        let objKeys = Object.keys(itemsJson) //array
+        //Shuffle array
+        shuffle(allItemList)
 
-        //total quant of items
-        if(itemQuant === undefined){itemQuant = 2}
-
-        for(i=0; i<itemQuant; i++){
-            let randomGroupKey = rarr(objKeys) //Random group key
-            let randomItemKey = rarr(Object.keys(itemsJson[randomGroupKey])) //Random item key
-
-            //Build format
-            let itemObj = itemsJson[randomGroupKey][randomItemKey]
-            // console.log(itemObj);
-            let itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
-            lootList += `${itemName} - ${itemObj.desc}.\n<br>`
+        //List first N items
+        for(q=0;q<itemQuant;q++){
+            if(q % 5 === 0){lootList += '<br>'} //Break after every 5 items
+            lootList += allItemList[q]
         }
 
+        //Post
         document.getElementById('items').innerHTML = lootList
     }
 
     //Post items
     loot()
-    document.getElementById('items').innerHTML = lootList
 
 
 
@@ -367,7 +410,6 @@
     let dmgVal = Math.ceil(rng(refVal) * lvl)
     let enemyActions
 
-    
     function genEnemyActions(level){
         if(level ===undefined){level = document.getElementById('eneLvl').value} //Picks val from input
         let actionRoll = rng(100)
@@ -437,8 +479,6 @@
 
         document.getElementById('enemy').innerHTML = `Enemy (0 life) &rarr; ${enemyAc}.`
     }
-
-    // console.log(genEnemyActions());
 </script>
 
 <style>
