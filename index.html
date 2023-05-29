@@ -7,8 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <button onclick="rLoot(21)">Loot</button>
-    <p id="items"></p>
+    <div style="display: flex; gap: 24px;">
+        <div style="display: flex; flex-direction: column;">
+            <button onclick="rLoot(21)">Loot</button>
+            <p id="items"></p>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            <button onclick="genEnemyActions()">Enemy action</button>
+            <input id='eneLvl' type="number" value="1">
+            <p id="enemy">Test</p>
+        </div>
+    </div>
 </body>
 
 <script>
@@ -39,8 +48,11 @@
         'coal'
     ]
     let plants = [
-        `${rng(3)}xsnake grass`,
-        `${rng(3)}xrose`
+        `snake grass`,
+        `rose`,
+        `Fly agaric`,
+        `Devil's bolete`,
+        `Ivory funnel`,
     ]
     let eadables = [
         'orange mushroom',
@@ -105,6 +117,10 @@
                 name: "long bow", type: 'weapon',
                 desc: "roll d6 before the combat, long bow deals damage equal to your roll",
             },
+            "elven bow":{
+                name: "elven bow", type: 'weapon',
+                desc: "avoid attacks when you use this during first two combat turns, your def is set to 1.",
+            },
             "x-bow":{
                 name: "x-bow", type: 'weapon',
                 desc: "attacks with this weapon ignore def, requires 2 actions to attack",
@@ -131,7 +147,7 @@
             },
             "sacrificial knife":{
                 name: "sacrificial knife", type: 'weapon',
-                desc: "execute targets below 25% life, loose 1 life",
+                desc: "Pay 1 life to attack. Execute target if it's below 25% life",
             },
             "black niddle":{
                 name: "black niddle", type: 'weapon',
@@ -344,40 +360,107 @@
     loot()
     document.getElementById('items').innerHTML = lootList
 
+
+
     //Enemy calculator
     let lvl = 2
     let dmgVal = Math.ceil(rng(refVal) * lvl)
-    let enemyActions = {
-        "attack":   {desc: `Will attack for ${dmgVal}`},
-        "crit":     {desc: `Will crit for ${dmgVal * 2}`},
-        "mega crit":{desc: `Will crit for ${dmgVal * 3} after this turn.`},
+    let enemyActions
 
-        "spell":    {desc: `Will cast a <random spell>`},
-        "buff":     {desc: `Will use <random buff spell>`},
-        "recover":  {desc: `Will recover lsot stats`},
-        "debuff":   {desc: `Will use <random debuff spell>`},
+    
+    function genEnemyActions(level){
+        if(level ===undefined){level = document.getElementById('eneLvl').value} //Picks val from input
+        let actionRoll = rng(100)
+        let enemyAc
+        console.log(actionRoll);
+        dmgVal = Math.ceil(rng(refVal/1.5) * level)
 
-        "wrestle":  {desc: `Will wrestle>`},
-        "theft":    {desc: `Will steal random item`},   
-        "disarm":   {desc: `Will steal item used for next turn`}, 
-        "recruits": {desc: `Will call reinforcements`},
-        "command":  {desc: `Will redirect all attacks of other enemies on you`},
-        "consume":  {desc: `Enemy will consume a random consumable from targets inveentory.`},
+        enemyActions = {
+            "attack":   {rate:0,   desc: `Will attack for ${dmgVal}`},
+            "str att":  {rate:3,   desc: `Will crit for ${dmgVal * 2}`},
+            "poi att":  {rate:3,   desc: `Will attack with poison for ${dmgVal}`},
+            "fire att": {rate:3,   desc: `Will attack with fire for ${dmgVal}`},
+            "mutli att":{rate:2,   desc: `Will attack ${rng(3,2)} times, each hit deals ${Math.ceil(dmgVal * 0.5)}`},
+            "crit":     {rate:1,   desc: `Will crit for ${Math.ceil(dmgVal * 2.5)} after this turn`},
+            
+            "spell":    {rate:1,   desc: `Will cast a <random spell>`},
+                
+            "recover":  {rate:3,   desc: `Will recover lost stats`},
+            "def break":{rate:3,   desc: `Will reduce your def by ${dmgVal}`},
+            "buff":     {rate:2,   desc: `Will use <random buff spell>`},
+            "debuff":   {rate:2,   desc: `Will use <random debuff spell>`},
 
-        "reflect":  {desc: `Will reflect any `},
-        "escape":   {desc: `Will escape`}, 
+            "wrestle":  {rate:2,   desc: `Roll dice (GM rlls for enemy), who rolls less looses 4 life.`},
+            "recruits": {rate:2,   desc: `Will call reinforcements`},
+            "disarm":   {rate:1,   desc: `Will steal item used against it during the next turn`},
+            "theft":    {rate:1,   desc: `Will steal random item`},   
+
+            "command":  {rate:1,   desc: `Will actions of all enemies on you`},
+            "consume":  {rate:1,   desc: `Enemy will consume a random consumable from targets inveentory`},
+            "reflect":  {rate:1,   desc: `Will reflect all spells to character that targets this`},
+
+            "escape":   {rate:1,   desc: `Will escape`},
+            "sepuku":   {rate:1,   desc: `Will deal ${Math.ceil(dmgVal * 2.5)} to character that would kill them`}
+        }
+
+        let aAction = []                           //Array of descriptions for 1%
+        let actionKeys = Object.keys(enemyActions) //Get keys
+
+        //Pick action
+        if(actionRoll < 10){//1%
+            for(i=0; i<actionKeys.length; i++){
+                if(enemyActions[actionKeys[i]].rate === 1){
+                    aAction.push(enemyActions[actionKeys[i]].desc)
+                }
+            }
+            return rarr(aAction)
+        } 
+        else if (actionRoll < 30){//10%
+            for(i=0; i<actionKeys.length; i++){
+                if(enemyActions[actionKeys[i]].rate === 2){
+                    aAction.push(enemyActions[actionKeys[i]].desc)
+                }
+            }
+            enemyAc = rarr(aAction)
+        } 
+        else if (actionRoll < 65){//30%
+            for(i=0; i<actionKeys.length; i++){
+                if(enemyActions[actionKeys[i]].rate === 3){
+                    aAction.push(enemyActions[actionKeys[i]].desc)
+                }
+            }
+            enemyAc = rarr(aAction)
+        } 
+        else {
+            enemyAc = enemyActions.attack.desc
+        }
+
+        document.getElementById('enemy').innerHTML = `Enemy (0 life) &rarr; ${enemyAc}.`
     }
-    console.log(enemyActions.attack.desc);
+
+    // console.log(genEnemyActions());
 </script>
 
 <style>
+    button, input{
+        width: 200px;
+        min-height: 32px;
+    }
+
     p{
         font-family: sans-serif;
         line-height: 140%;
     }
     body{
+        gap: 8px;
         padding: 48px;
         margin: 0;
+        display: flex;
+    }
+
+    body div{
+        width: 100%;
+        gap: 8px;
     }
 </style>
 </html>
