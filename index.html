@@ -21,6 +21,13 @@
 </body>
 
 <script>
+    //Spells
+    let spells = {
+        "fire": {
+            "spell":{desc:""}
+        }
+    }
+
     //Utility functions
     function rng(maxVal, minVal){//random number
         if(minVal === undefined){minVal=1}
@@ -78,7 +85,7 @@
         'red berry']
     let misc = [
         'wood axe', 
-        'hammer',
+        'blacksmith hammer',
         'saw',
         `rope(${rng(15)}m)`,
         'grapling hook(${rng(15)}m)',
@@ -90,253 +97,189 @@
     let itemsJson = {
         //Weapons
         "weapons":{
-            "sword":{
-                name: "sword", type: 'weapon', 
-                desc: 'attacks with this weapon deal 1 more damage', 
-            },
-            "mace":{
-                name: "mace", type: 'weapon', 
-                desc: 'stun the target if this is the 1st you use this in combat',             
-            },
-            "dagger pair":{
-                name: "dagger pair", type: 'weapon',
-                desc: 'hits twice',
-            },
-            "flail":{
-                name: "flail", type: 'weapon',
-                desc: "This weapon attacks can't be evaded",
-            },
-            "axe":{
-                name: "axe", type: 'weapon',
-                desc: "hits also damage adjacent enemies",
-            },
-            "hammer":{
-                name: "hammer", type: 'weapon',
-                desc: "reduce target def by 1 on hit. Can reduce def below 0",
-            },
-            "halberd":{
-                name: "halberd", type: 'weapon',
-                desc: "deals 1 extra damage per turn where you haven't dealt damage",
-            }, 
-            "three blades":{
-                name: "three blades", type: 'weapon',
-                desc: "hits three times, hits can't deal more than 1 dmg",
-            },
-            "morgenstern":{
-                name: "morgenstern", type: 'weapon',
-                desc: "silence the target during this turn on hit",
-            },
-            "bow":{
-                name: "bow", type: 'weapon',
-                desc: "avoid melee damage when you attack with this",
-            },
-            "long bow":{
-                name: "long bow", type: 'weapon',
-                desc: "roll d6 before the combat, long bow deals damage equal to your roll",
-            },
-            "elven bow":{
-                name: "elven bow", type: 'weapon',
-                desc: "avoid attacks when you use this during first two combat turns, your def is set to 1.",
-            },
-            "x-bow":{
-                name: "x-bow", type: 'weapon',
-                desc: "attacks with this weapon ignore def, requires 2 actions to attack",
-            },
-            "torch":{
-                name: "torch", type: 'weapon',
-                desc: "on hit, set enemy on fire.",
-            },
-            "wooden staff":{
-                name: "wooden staff", type: 'weapon',
-                desc: "recover 1 power",
-            },
-            "iron staff":{
-                name: "iron staff", type: 'weapon',
-                desc: "recover 2 power, deal no dmg for the next two turns",
-            },
-            "claymore":{
-                name: "claymore", type: 'weapon',
-                desc: "deals 10 extra damage, roll dice before attack, reduce damage by the roll value",
-            },
-            "blood cleaver":{
-                name: "blood cleaver", type: 'weapon',
-                desc: "on first hit, target looses half of their life",
-            },
-            "sacrificial knife":{
-                name: "sacrificial knife", type: 'weapon',
-                desc: "Pay 1 life to attack. Execute target if it's below 25% life",
-            },
-            "black niddle":{
-                name: "black niddle", type: 'weapon',
-                desc: "execute targets below 25% life, loose 1 life",
-            },
+            "sword"         :{desc: 'attacks with this weapon deal 1 more damage'},
+            "flail"         :{desc: "deals 1 more damage per different item that you used"},
+            "war axe"       :{desc: "deals 1 more damage per empty non-bag item slot"},
+            "chained blade" :{desc: "oh hit roll d6, if non-bag slot matching the roll has a weapon in it, use that weapon as an extra action"},
+
+            //multistrike
+            "dagger pair"   :{desc: 'hits twice'},
+            "three blades"  :{desc: "hits three times, hits can't deal more than 1 dmg"},
+
+            //dmg scaling
+            "halberd"       :{desc: "deals 1 extra damage per turn where you haven't dealt damage"}, 
+            "claymore"      :{desc: "deals 10 extra damage, roll dice before attack, reduce damage by the roll value"},
+
+            //cc
+            "morgenstern"   :{desc: "first hit with this weapon will silence the target"},
+            "mace"          :{desc: 'first hit with this weapon will stun the target'},
+
+            //dot
+            "poisoned blade":{desc: 'apply 1 poison on hit'},
+
+            //debuff    
+            "poisoned claw" :{desc: 'reduce target power by 1 on hit. Can reduce power below 0.'},
+            "hammer"        :{desc: "reduce target def by 1 on hit. Can reduce def below 0"},
+            "black niddle"  :{desc: "execute targets below 25% life, loose 1 life"},
             
+            //aoe
+            "axe"           :{desc: "hits also damage adjacent enemies"}, //do more aoe checks
+            
+            //ranged
+            "bow"           :{desc: "avoid melee damage when you attack with this"},
+            "long bow"      :{desc: "roll d4 before the combat, long bow deals damage equal to your roll"},
+            "elven bow"     :{desc: "avoid attacks when you use this during first two combat turns, your def is set to 1"},
+            "x-bow"         :{desc: "attacks with this weapon ignore def"},
+            
+            //magic
+            "wooden staff"  :{desc: "Rrcover 1 power on hit"},
+            "iron staff"    :{desc: "recover 2 power on hit, deal no dmg for two turns"},
+            
+            //fire dmg
+            "torch"         :{desc: "on hit, set enemy on fire"},
+            
+            //???
+            "blood cleaver"  :{desc: "on first hit, target looses half of their life"},
+            "sacrificial knife":{desc: "Pay 1 life to attack. Execute target if it's below 25% life"},
+            "odd blade"      :{desc:"On hit roll dice, during next turn item in the matching slot can be used as an extra action"},
+            "odd pickaxe"    :{desc:"If you kill enemy with this, it drops a jewel"},
+            "odd mace"       :{desc:"On hit swap power with def"}
         },
 
         //Offhands
         "offhand":{
-            "shield":{
-                name: "shield", type: 'offhand',
-                desc: 'use it to reduce incomming damage by 50%',
-            },
-            "wooden shiled":{
-                name: "wooden shiled", type: 'offhand',
-                desc: 'reduce incoming damage by 3',
-            },
-            "buckler":{
-                name: "buckler", type: 'offhand',
-                desc: 'roll dice on use, if roll is less than 11 this item redirects attacks back at the enemy',
-            },
-            "great shiled":{
-                name: "great shiled", type: 'offhand',
-                desc: 'reduce incoming dmg by 50%, all enemies target you',
-            },
+            "shield"       :{desc:'use to reduce incomming damage by 50%'},
+            "wooden shiled":{desc:'use to reduce incoming damage by 3'},
+            "great shiled" :{desc:'use to reduce incoming dmg by 50%, all enemies target you'},
+            "silver shield":{desc:'use to reduce incoming gmb by 2, cleanse yourself'},
+            "arcane shield":{desc:'use to reduce incomming damage by 50%, recover 1 power if you have 0'},
+            "buckler"      :{desc:'use to roll dice on use, if roll is less than 11 this item redirects attacks back at the enemy'},
+            "war shield"   :{desc:'use it to stun the target, next turn you deal no damage'},
 
-            "War banner":{
-                name: "war banner", type: 'offhand',
-                desc: 'on first use, allies gain 1 power.',
-            },
-            "war horn":{
-                name: "war banner", type: 'offhand',
-                desc: 'On 1st use, allies gain 1 def, all enemies target you',
-            },
-            "blood talisman":{
-                name: "blood talisman", type: 'offhand',
-                desc: 'skip turn, for the next two turns gain 2 life when you attack',
-            },
-            "cursed skull":{
-                name: "cursed skull", type: 'offhand',
-                desc: 'choose a lesser undead, while you have the skull it becomes your servant',
-            },
-            "crystal ball":{
-                name: "cursed skull", type: 'offhand',
-                desc: 'roll dice on use if roll is below 11 gain 1 power, else loose 1 power',
-            },
-            "mirror shield":{
-                name: "mirror shield", type: 'offhand',
-                desc: 'On use reflect spell back at caster, roll dice, if 1 mirror shield shatters',
-            },
-            "magic book":{
-                name: `book of ${rarr(magicSchools)}`, type: 'offhand',
-                desc: 'pay 5 points of magic trait to unveil a spell'
-            }
-
+            "War banner"   :{desc:'on first use, allies gain 1 power.'},
+            "war horn"     :{desc:'On 1st use, allies gain 1 def, all enemies target you'},
+            "talisman"     :{desc:'skip turn, for the next two turns gain 2 life when you attack'},
+            "cursed skull" :{desc:'choose a lesser undead, while you have the skull it becomes your servant'},
+            "crystal ball" :{desc:'roll dice on use, if roll is below 11 gain 2 power, else loose 1 power'},
+            "mirror shield":{desc:'On use reflect spell back at caster, roll dice, if 1 mirror shield shatters'},
+            "magic book"   :{desc:'pay 5 points of magic trait to unveil a spell',name: `book of ${rarr(magicSchools)}`, type: 'magic book'}
         },
 
         //Equipment
         "equipment":{
           
-            //Tank fighter
-            "Plate armor"   :{desc:"Physical damage you take is capped at 3. -5 magic trait. You can't sneak or hide.", },
-            "Royal cape"    :{desc:"Gain 2 life per def.", name: "royal", type: 'equipment'},
-            "Plate helmet"  :{desc:"You can't be stunned. -2 magic trait.", },
+            //Warrior
+
+
+            //Tank
+            "Plate armor"   :{desc:"Physical damage you take is capped at 3. -5 magic trait. You can't sneak or hide", },
+            "Royal cape"    :{desc:"Gain 2 life per def", name: "royal", type: 'equipment'},
+            "Plate helmet"  :{desc:"You can't be stunned. -2 magic trait", },
             "Plate gloves"  :{desc:"-", },
-            "Plate boots"   :{desc:"Add 1 def. You can't sneak or hide.", },
-            "Plate pants"   :{desc:"-", },
-            "Royal belt"    :{desc:"-", },
+            "Plate boots"   :{desc:"Add 1 def. You can't sneak or hide", },
+            "Plate pants"   :{desc:"Restore Def to max value first time it becomes negative", },
+            "Royal belt"    :{desc:"When you use a shield, deal 1 damage to the target", },
 
-            "Chainmail"     :{desc:"Add 1 def. -5 magic trait.", },
-            "Gambeson"      :{desc:"Add 5 life. -5 magic trait.", },
-            "Tabard"        :{desc:"Restore 6 life when you aree kncoked down the first time during the fight.", },
-            "Black plate"   :{desc:"At the start of the combat pay 2 max life to gain 3 def.", },
+            "Chainmail"     :{desc:"Add 1 def. -5 magic trait", },
+            "Gambeson"      :{desc:"Add 5 life. -5 magic trait", },
+            "Tabard"        :{desc:"Restore 6 life when you aree kncoked down the first time during the fight", },
+            "Black plate"   :{desc:"At the start of the combat pay 2 max life to gain 3 def", },
 
-            //Rogue ranger
-            "Leather jacket":{desc:"20% chance to dodge an attack. -2 magic trait.", },
-            "Leather cape"  :{desc:"+10 to stealth.", },
-            "Leather hat"   :{desc:"Poisons deal 2 damage per stack, you deal no physical dmg.", },
-            "Leather gloves":{desc:"+5 to theft.", },
-            "Leather boots" :{desc:"Adds combat action: Dodge an attack.", },
-            "Leather pants" :{desc:"First bow or x-bow attack hits an additional random target.", },
+            //Rogue
+            "Leather jacket":{desc:"you can use one consumable in addition to your regular turn action", },
+            "Leather cape"  :{desc:"gain 1 power per point of negative Def", },
+            "Leather hat"   :{desc:"Poisons deal 2 damage per stack, you deal no physical dmg", },
+            "Leather gloves":{desc:"+5 to theft", },
+            "Leather boots" :{desc:"Adds combat action: Dodge an attack", },
+            "Leather pants" :{desc:"First bow or x-bow attack hits an additional random target", },
             "Leather belt"  :{desc:"+3 slots for consumables", },
 
-            "Wool jacket"   :{desc:"If equipped: You can pick combat actions for two sequences.", },
-            "Dagger belt"   :{desc:"Roll d4, dagger attack ignore that much targets def.", },
-            "Potion harness":{desc:"+2 potion slots, uses random potion when character reaches 2 life during combat.", },
-            "Face mask"     :{desc:"Roll dice before the combat, if you rolled 1, you have 2 combat actions each turn.", },
+            "Wool jacket"   :{desc:"", },
+            "Dagger belt"   :{desc:"Roll d4, dagger attack ignore that much targets def", },
+            "Potion harness":{desc:"+2 potion slots, uses random potion when character reaches 2 life during combat", },
+            "Face mask"     :{desc:"Roll dice before the combat, if you rolled 1, you have 2 combat actions each turn", },
+            "Wool cloak"    :{desc:"You can perform one action before the encounter starts, enemies treates as 'out of combat'", },
+            
+            //Ranger
+
 
             //Mage
-            "Silk robe"     :{desc:"Gain 1 power, -2 max life", },
-            "Silk cape"     :{desc:"Gain 1 life per power after you canst a spell.", },
-            "Silk hat"      :{desc:"Gain 15 magic trait, -3 max life.", },
-            "Silk gloves"   :{desc:"You can use one scroll as an extra action during the combat.", },
-            "Silk boots"    :{desc:"Restore 2 life after you use a scroll.", },
-            "Silk pants"    :{desc:"When you uncover a spell in the spell book, you can choose from two options. -1 def.", },
-            "Silk belt"     :{desc:"If equipped:", },
+            "Silk robe"     :{desc:"Gain 1 power, loose 3 max life", },
+            "Silk cape"     :{desc:"Gain 1 life per power after you canst a spell", },
+            "Silk hat"      :{desc:"Gain 15 magic trait, -3 max life", },
+            "Silk gloves"   :{desc:"You can use one scroll as an extra action during the combat", },
+            "Silk boots"    :{desc:"Restore 2 life after you use a scroll", },
+            "Silk pants"    :{desc:"When you uncover a spell in the spell book, you can choose from two options. -1 def", },
+            "Silk belt"     :{desc:"Gain 2 power, your weapons deal 3 less damage", },
+            "Pointy hat"    :{desc:"You can cast two spells per turn", },
 
             //Healer
             "Crown"         :{desc:"Gain 5 Holy magic, -2 life", },
-            "Purple robe"   :{desc:"Healing spells you cas heal for 1 more.", },
-            "Cloth belt"    :{desc:"Gain 1 power after you restored 5 life to other characters.", },
+            "Purple robe"   :{desc:"Healing spells you cas heal for 1 more", },
+            "Cloth belt"    :{desc:"Gain 1 power after you restored 5 life to other characters", },
+            "Scale armor"   :{desc:"Your spells now cost Def instead of Power", },
 
             //Utility
-            "Mittens"       :{desc:"Gain 3 cold resistance", },
-            "Woolen cloak"  :{desc:"Reduce magic damage by 1.", },
+            "Woolen cloak"  :{desc:"Reduce magic damage by 1", },
             "Purple robe"   :{desc:"5 to persuasion and charisma", },
-            "Thic mittens"  :{desc:"5 crafting", },
         },
 
         //Consumables
         "consumable":{
-            "bandage":{
-                name: "bandage", type: 'consumable', rarity: refRarity,
-                desc: `consume to restores ${refVal * 2} life`,
-            },
-            "bottle with water":{
-                name: "bottle of water", type: 'consumable', rarity: refRarity,
-                desc: `consume to restores 1 power`,
-            },
-            "ale":{
-                name: "ale", type: 'consumable', rarity: refRarity,
-                desc: `consume to make your next 3 rolls to be either 1 or 20.`,
-            },
-            "food":{
-                name: "food", type: 'consumable', rarity: refRarity,
-                desc: `consume to Restores your stats to default values, can't be used in combat.`,
-            },
-            "bottle with poison":{
-                name: "food", type: 'consumable', rarity: refRarity,
-                desc: `contains poison`,
-            },
-            "smoke bomb":{
-                name: "smoke bomb", type: 'consumable', rarity: refRarity,
-                desc: `explodes when thrown creating a 3 square meter cloud of smoke`,
-            },
-            "gas bomb":{
-                name: "gas bomb", type: 'consumable', rarity: refRarity,
-                desc: `applies 1 poison to all targets in the area.`,
-            },
-            "small crystal":{
-                name: "small crystal", type: 'consumable', rarity: refRarity,
-                desc: `consume to add d6 to your next dice roll`,
-            },
-            "crystal":{
-                name: "crystal", type: 'consumable', rarity: refRarity,
-                desc: `consume to add d10 to your next dice roll`,
-            },
-            "large crystal":{
-                name: "large crystal", type: 'consumable', rarity: refRarity,
-                desc: `consume to add d20 to your next dice roll`,
-            },
-            "small jewel":{
-                name: "small jewel", type: 'consumable', rarity: refRarity,
-                desc: `consume to roll d4 instead of default dice for your next dice roll`,
-            },
-            "jewel":{
-                name: "jewel", type: 'consumable', rarity: refRarity,
-                desc: `consume to roll d10 instead of default dice for your next dice roll`,
-            },
-            "large jewel":{
-                name: "large jewel", type: 'consumable', rarity: refRarity,
-                desc: `consume to roll d20 instead of default dice for your next dice roll`,
-            },
-            "broken coin":{
-                name: "broken coin", type: 'consumable', rarity: refRarity,
-                desc: `consume to roll d2 instead of default dice for your next dice roll`,
-            },
-            "Art book":{
-                name: "Art book", type: 'consumable', rarity: refRarity,
-                desc: `Unveil 3 random passives, add 1 to your character.`,
-            },
+            "healing potion"      :{desc: `consume to restores ${refVal * 2} life`},
+            "water potion"        :{desc: `consume to restores 1 power`},
+            
+            //util
+            "ale"                 :{desc: `consume to make your next 3 rolls to be either 1 or 20.`},
+            "bottle with poison"  :{desc: `contains poison`},
+            "smoke bomb"          :{desc: `explodes when thrown creating a 3 square meter cloud of smoke`},
+            
+            //dice manipulation
+            "small crystal"       :{desc: `consume to add d6 to your next dice roll`},
+            "crystal"             :{desc: `consume to add d10 to your next dice roll`},
+            "large crystal"       :{desc: `consume to add d20 to your next dice roll`},
+            "small jewel"         :{desc: `consume to roll d4 instead of default dice for your next dice roll`},
+            "jewel"               :{desc: `consume to roll d10 instead of default dice for your next dice roll`},
+            "large jewel"         :{desc: `consume to roll d20 instead of default dice for your next dice roll`},
+            "broken coin"         :{desc: `consume to roll d2 instead of default dice for your next dice roll`},
+            
+            //char-prog
+            "Art book"            :{desc: `Unveil 3 random passives, add 1 to your character.`},
+            
+            //multi hit
+            "weapon chain"        :{desc:"your next wepon attack hits 3 times, hits deal 1 damage"},
+            
+            //aoe
+            "gas bomb"            :{desc: `applies 1 poison to all targets in the area.`},
+            "pocket bomb"         :{desc:"deal 2 damage to all enemies"},
+            "frost nova scroll"   :{desc:"consume to stun all enemeis and players"},
+
+            //bow ench
+            "burning arrow"       :{desc:"consume to make your next bow or x-bow attack deal fire damage"},
+
+            "Defence scroll"      :{desc:"Consume to gain 2 def"},
+            "Scroll of fireball"  :{desc:"Deal 3 fire damage to target"},
+            "Scroll of cleansing" :{desc:"Remove all positive and negative effects from the target"},
+            "Scroll of shield"    :{desc:"Reduce all incoming damage to zero during this turn"},
+            "Scroll of mirror"    :{desc:"Reflect enemy action"},
+            "Scroll of confusion" :{desc:"Randomply swap characters life, power, and def"},
+            "Scroll of action"    :{desc:"Next turn you gain an extra action"},
+
+            "Scroll of onion"     :{desc:"items in yout bag treated as equipped"},
+
+
+            //review
+            "Fortune scroll"      :{desc:"increase your next dice roll by 10"},
+            "Revive scroll"       :{desc:"revive dead character"},
+            "Portal scroll"       :{desc:"opens a temporary portal to a known location"},
+            "Iron skin scroll"    :{desc:"gain 4 def for the next two turns"},
+            "Fire Nova scroll"    :{desc:"deal 1 fire damage to all targets in 5m radius"},
+
+            "Lightwave scroll"    :{desc:"restore 4 life to all characters (allies and enemies)"},
+            "Rage scroll"         :{desc:"next attack gains 1 dmg per missing life"},
+            "orb of chaos"        :{desc:"consume to choose a numeric value on an item and flip a coin, if tails increase it by 1, else reduce it by 1"},
+            "orb of order"        :{desc:"consume to choose an item and flip a coin, if tail add an additional basic property to an item"},
+            "orb of value"        :{desc:"consume to choose a dice on an item, flip a coin, if tails increase the dice by 2, esle reduce it by 2"},
         },
     
         //Materials & misc
@@ -368,7 +311,7 @@
         },
     }
 
-    //String creator
+    //Loot creator
     function loot(itemQuant){
         let allItemList = []
         let lootList = ''
@@ -383,7 +326,7 @@
 
                 let itemName = itemKeys[ite].charAt(0).toUpperCase() + itemKeys[ite].slice(1) //Capitalizes
 
-                if(itemObj.type === 'material'){ //If material use name parameter
+                if(itemObj.type === 'material' || itemObj.type === 'magic book'){ //If material use name parameter
                     itemName = itemObj.name.charAt(0).toUpperCase() + itemObj.name.slice(1) //Capitalizes
                 }
 
