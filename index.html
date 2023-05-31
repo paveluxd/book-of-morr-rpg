@@ -60,13 +60,12 @@
     let refRarity = 1
 
     let magicSchools = [
-        'Fire',
-        'Ice',   //cc
-        'Life',  //support
-        'Chaos',
-        'Death',
-        'Time',
-        'Nature' //lightning and druid stuff
+        'Sun',
+        'Moon',  //cc, water, ice, time
+        'Life',  //support, holy
+        'Death', //necro
+        'Chaos', //odd spells, demonology
+        'Order'  //druid stuff
     ]
     let materials = [
         'stone',
@@ -99,6 +98,20 @@
     let itemsJson = {
         //Weapons
         "weapons":{
+            //AP system
+            //High dice
+            "iron sword"    :{desc: "use to deal damage equal to your action points"},
+            "iron shield"   :{desc: "use to block damage equal to your action points"},
+
+            //Low dice
+            "iron mace"     :{desc: "use to stun target if your action poits are 1 or 2"},
+            "iron warbanner":{desc: "use to gain def equal to your ap, requires more than 2 ap"},
+
+            //Misc
+            "boots"         :{desc: "use to skip your turn and save half of your action points for the next turn."},
+            
+
+            //Old system
             "sword"         :{desc: 'attacks with this weapon deal 1 more damage'},
             "flail"         :{desc: "deals 1 more damage per different item that you used"},
             "war axe"       :{desc: "deals 1 more damage per empty non-bag item slot"},
@@ -150,6 +163,10 @@
 
         //Offhands
         "offhand":{
+            //AP system
+            
+
+            //Old system
             "shield"       :{desc:'use to reduce incomming damage by 50%'},
             "wooden shiled":{desc:'use to reduce incoming damage by 3'},
             "great shiled" :{desc:'use to reduce incoming dmg by 50%, all enemies target you'},
@@ -169,38 +186,39 @@
 
         //Equipment
         "equipment":{
-          
-            //Warrior
+            //AP system
+            
 
-
+            //Old system
+           
             //Tank
-            "Plate armor"   :{desc:"Physical damage you take is capped at 3. -5 magic trait. You can't sneak or hide", },
-            "Royal cape"    :{desc:"Gain 2 life per def", name: "royal", type: 'equipment'},
-            "Plate helmet"  :{desc:"You can't be stunned. -2 magic trait", },
-            "Plate gloves"  :{desc:"-", },
-            "Plate boots"   :{desc:"Add 1 def. You can't sneak or hide", },
-            "Plate pants"   :{desc:"Restore Def to max value first time it becomes negative", },
-            "Royal belt"    :{desc:"When you use a shield, deal 1 damage to the target", },
+            "Plate armor (body)"   :{desc:"You don't loose def when hit", },
+            "Royal cape"           :{desc:"Gain 2 life per def", name: "royal", type: 'equipment'},
+            "Plate helmet"         :{desc:"You can't be stunned. -2 magic trait", },
+            "Plate gloves"         :{desc:"-", },
+            "Plate boots"          :{desc:"Add 1 def. You can't sneak or hide", },
+            "Plate pants"          :{desc:"Restore Def to max value first time it becomes negative", },
+            "Royal belt"           :{desc:"When you use a shield, deal 1 damage to the target", },
 
-            "Chainmail"     :{desc:"Add 1 def. -5 magic trait", },
-            "Gambeson"      :{desc:"Add 5 life. -5 magic trait", },
-            "Tabard"        :{desc:"Restore 6 life when you aree kncoked down the first time during the fight", },
-            "Black plate"   :{desc:"At the start of the combat pay 2 max life to gain 3 def", },
+            "Chainmail (body)"     :{desc:"Add 1 def. -5 magic trait", },
+            "Gambeson"             :{desc:"Add 5 life. -5 magic trait", },
+            "Tabard"               :{desc:"Restore 6 life when you aree kncoked down the first time during the fight", },
+            "Black plate"          :{desc:"At the start of the combat pay 2 max life to gain 3 def", },
 
             //Rogue
-            "Leather jacket":{desc:"you can use one consumable in addition to your regular turn action", },
-            "Leather cape"  :{desc:"gain 1 power per point of negative Def", },
-            "Leather hat"   :{desc:"Poisons deal 2 damage per stack, you deal no physical dmg", },
-            "Leather gloves":{desc:"+5 to theft", },
-            "Leather boots" :{desc:"Adds combat action: Dodge an attack", },
-            "Leather pants" :{desc:"First bow or x-bow attack hits an additional random target", },
-            "Leather belt"  :{desc:"+3 slots for consumables", },
+            "Leather west (body)"  :{desc:"you can use one consumable in addition to your regular turn action", },
+            "Leather cape"         :{desc:"gain 1 power per point of negative Def", },
+            "Leather hat"          :{desc:"Poisons deal 2 damage per stack, you deal no physical dmg", },
+            "Leather gloves"       :{desc:"+5 to theft", },
+            "Leather boots"        :{desc:"Adds combat action: Dodge an attack", },
+            "Leather pants"        :{desc:"First bow or x-bow attack hits an additional random target", },
+            "Leather belt"         :{desc:"+3 slots for consumables", },
 
-            "Wool jacket"   :{desc:"", },
-            "Dagger belt"   :{desc:"Roll d4, dagger attack ignore that much targets def", },
-            "Potion harness":{desc:"+2 potion slots, uses random potion when character reaches 2 life during combat", },
-            "Face mask"     :{desc:"Roll dice before the combat, if you rolled 1, you have 2 combat actions each turn", },
-            "Wool cloak"    :{desc:"You can perform one action before the encounter starts, enemies treates as 'out of combat'", },
+            "Leather belts (body)" :{desc:"Double your life, your defense is always 0", },
+            "Dagger belt"          :{desc:"Roll d4, dagger attack ignore that much targets def", },
+            "Potion harness"       :{desc:"+2 potion slots, uses random potion when character reaches 2 life during combat", },
+            "Face mask"            :{desc:"Roll dice before the combat, if you rolled 1, you have 2 combat actions each turn", },
+            "Wool cloak"           :{desc:"You can perform one action before the encounter starts, enemies treates as 'out of combat'", },
             
             //Ranger
 
@@ -213,6 +231,10 @@
             "Silk boots"    :{desc:"Restore 2 life after you use a scroll", },
             "Silk pants"    :{desc:"When you uncover a spell in the spell book, you can choose from two options. -1 def", },
             "Silk belt"     :{desc:"Gain 2 power, your weapons deal 3 less damage", },
+
+            "Archmage west" :{desc:"Your spells now cost magic trait instead of power"},
+            "Archmage cape" :{desc:"+3 pwoer, your weapons gain no damage from power"},
+            "Archmage gloves":{desc:""},
             "Pointy hat"    :{desc:"You can cast two spells per turn", },
 
             //Healer
@@ -229,20 +251,20 @@
         //Consumables
         "consumable":{
             "healing potion"      :{desc: `consume to restores ${refVal * 2} life`},
-            "fresh water"        :{desc: `consume to restores 1 power`},
+            "fresh water"         :{desc: `consume to restores 1 power`},
             
             //util
-            "ale"                 :{desc: `consume to make your next 3 rolls to be either 1 or 20.`},
+            "ale"                 :{desc: `consume to make your next 3 out of combat rolls are either 1 or 20.`},
             "bottle with poison"  :{desc: `contains poison`},
             "smoke bomb"          :{desc: `explodes when thrown creating a 3 square meter cloud of smoke`},
             
             //dice manipulation
             "small crystal"       :{desc: `consume to add d6 to your next dice roll`},
             "crystal"             :{desc: `consume to add d10 to your next dice roll`},
-            "large crystal"       :{desc: `consume to add d20 to your next dice roll`},
+            // "large crystal"       :{desc: `consume to add d20 to your next dice roll`},
             "small jewel"         :{desc: `consume to roll d4 instead of default dice for your next dice roll`},
             "jewel"               :{desc: `consume to roll d10 instead of default dice for your next dice roll`},
-            "large jewel"         :{desc: `consume to roll d20 instead of default dice for your next dice roll`},
+            // "large jewel"         :{desc: `consume to roll d20 instead of default dice for your next dice roll`},
             "broken coin"         :{desc: `consume to roll d2 instead of default dice for your next dice roll`},
             
             //char-prog
@@ -364,41 +386,41 @@
         let actionRoll = rng(100)
         let enemyAc = ''
         console.log(actionRoll);
+
         dmgVal = Math.ceil(rng(refVal/1.5) * level)
 
         enemyActions = {
-            "attack":   {rate:0,   desc: `Will attack for ${dmgVal}`},
-            "str att":  {rate:3,   desc: `Will crit for ${dmgVal * 2}`},
-            "poi att":  {rate:3,   desc: `Will attack with poison for ${dmgVal}`},
-            "fire att": {rate:3,   desc: `Will attack with fire for ${dmgVal}`},
-            "mutli att":{rate:2,   desc: `Will attack ${rng(3,2)} times, each hit deals ${Math.ceil(dmgVal * 0.5)}`},
-            "crit":     {rate:1,   desc: `Will crit for ${Math.ceil(dmgVal * 2.5)} after this turn`},
+            "attack":   {rate:1,   desc: `Will attack for ${dmgVal}`},
+            "str att":  {rate:1,   desc: `Will crit for ${Math.ceil(dmgVal * 1.5)}`},
+            "poi att":  {rate:1,   desc: `Will attack with poison for ${dmgVal}`},
+            "fire att": {rate:1,   desc: `Will attack with fire for ${dmgVal}`},
+            "mutli att":{rate:1,   desc: `Will attack ${rng(3,2)} times, each hit deals ${Math.ceil(dmgVal * 0.3)}`},
+            "crit":     {rate:1,   desc: `Will crit for ${Math.ceil(dmgVal * 2)} after this turn`},
             
-            "spell":    {rate:1,   desc: `Will cast a <random spell>`},
-                
-            "recover":  {rate:3,   desc: `Will recover lost stats`},
-            "def break":{rate:3,   desc: `Will reduce your def by ${dmgVal}`},
-            "buff":     {rate:2,   desc: `Will use <random buff spell>`},
-            "debuff":   {rate:2,   desc: `Will use <random debuff spell>`},
-
-            "wrestle":  {rate:2,   desc: `Roll dice (GM rlls for enemy), who rolls less looses 4 life.`},
-            "recruits": {rate:2,   desc: `Will call reinforcements`},
-            "disarm":   {rate:1,   desc: `Will steal item used against it during the next turn`},
-            "theft":    {rate:1,   desc: `Will steal random item`},   
-
-            "command":  {rate:1,   desc: `Will actions of all enemies on you`},
-            "consume":  {rate:1,   desc: `Enemy will consume a random consumable from targets inveentory`},
-            "reflect":  {rate:1,   desc: `Will reflect all spells to character that targets this`},
-
-            "escape":   {rate:1,   desc: `Will escape`},
-            "sepuku":   {rate:1,   desc: `Will deal ${Math.ceil(dmgVal * 2.5)} to character that would kill them`}
+            
+            "recover":  {rate:1,   desc: `Will recover lost stats`},
+            "def break":{rate:1,   desc: `Will reduce your def by ${dmgVal}`},
+            "buff":     {rate:1,   desc: `Will use random buff spell`},
+            "debuff":   {rate:1,   desc: `Will use random debuff spell`},
+            
+            "wrestle":  {rate:1,   desc: `Roll d20 (GM rolls for enemy), who rolls less looses 4 life. you can only counter this with stun`},
+            "recruits": {rate:1,   desc: `Will call reinforcements`},
+            
+            // "spell":    {rate:1,   desc: `Will cast a <random spell>`},
+            // "reflect":  {rate:1,   desc: `Will reflect any spell or attack to character that targets this`},
+            // "disarm":   {rate:1,   desc: `Will steal item used against it during the next turn`},
+            // "theft":    {rate:1,   desc: `Will steal random item`},   
+            // "command":  {rate:1,   desc: `Will redirect actions of all enemies on you`},
+            // "consume":  {rate:1,   desc: `Enemy will consume a random consumable from targets inveentory`},
+            // "escape":   {rate:1,   desc: `Will escape`},
+            // "sepuku":   {rate:1,   desc: `Will deal ${Math.ceil(dmgVal * 2.5)} to character that would kill them`}
         }
 
         let aAction = []                           //Array of descriptions for 1%
         let actionKeys = Object.keys(enemyActions) //Get keys
 
         //Pick action
-        if(actionRoll < 20){//1%
+        if(actionRoll < 100){//1%
             for(i=0; i<actionKeys.length; i++){
                 if(enemyActions[actionKeys[i]].rate === 1){
                     aAction.push(enemyActions[actionKeys[i]].desc)
@@ -426,7 +448,7 @@
             enemyAc = enemyActions.attack.desc
         }
         console.log(enemyAc);
-        document.getElementById('enemy').innerHTML = `Enemy (0 life) &rarr; ${enemyAc}.`
+        document.getElementById('enemy').innerHTML = `Enemy (Hp: 0/0 | Power: 0/0 | Def 0/0)<br> Rolled d6 for 0 action points &rarr;  ${enemyAc}.`
     }
 </script>
 
