@@ -98,30 +98,35 @@
     let itemsJson = {
         //Weapons
         "weapons":{
-            //AP system
-            //High dice
-            "iron sword"      :{desc: "use to deal damage equal to your action points"},
-            "iron mallet"     :{desc: "use to reduce enemy def by action points value (def can't go negative), requires action roll 1 or 2."},//???
-            "iron shield"     :{desc: "use to reduce incoming damage by your action points"},
+
+            //Core
+            "iron sword"      :{desc: "use to attack the target, and deal damage equal to your AP"},                 //Attack
+            "iron shield"     :{desc: "use to reduce incoming damage by your AP"},                                   //Block
+            "boots"           :{desc: "use to save half (rounding up) of your AP for the next turn"},                //Increase ap
+            "cape"            :{deck: "use to reduce your next turn action roll by half (rouinding up) of your AP"}, //lower AP
+            "wooden mace"     :{desc: "use to attack the target, and have a 25% chance to stun it"},                 //25 stun
+            "iron mallet"     :{desc: "use to attack, and have a 25% chace to reduce target Def by AP value"},       //25 def break
             
             //Low dice
-            "knights shiels"  :{desc: "use to reduce incoming damage by 50%, requires action roll 1 or 2"},
-            "Poisoned spike"  :{desc: "reduce enemy action point dice by 2 until the end of the fight, requires roll 1 or 2."},
-            "iron mace (mace)":{desc: "use to stun target if your action points are 1 or 2"},
-            "star mace (mace)":{desc: "use as an extra action to swap your ap with enemy, requires roll 1 or 2"},
+            "knights shiels"          :{desc: "use to reduce incoming damage by 50%, requires action roll 1 or 2"},
+            "Poisoned spike"          :{desc: "reduce enemy action point dice by 2 until the end of the fight, requires roll 1 or 2."},
+            "iron mace (mace)"        :{desc: "use to stun target if your action points are 1 or 2"},
+            "star mace (mace)"        :{desc: "use as an extra action to swap your ap with enemy, requires roll 1 or 2"},
             
+            //Rogue
+            "dagger (main hand)"      :{desc: "spend 2 action points to attack for 1 damage as an extra turn action"},
+            "Static blade (artefact)" :{desc: "use to increase power by 2, requires you to roll max value for your action roll"},
+
             //Good
-            "Tower shield" :{desc: "use to pick a number between 1 and 6, reduce incoming damage and next turns action roll by that value"},
+            "Tower shield (shield)" :{desc: "use to pick a number between 1 and 6, reduce incoming damage and next turns action roll by that value"},
             
             //artefact
             "Hammer of Kanut (artefact)" :{desc: "use to deal 2 dmg, then reduce target def by that value (def can go negative), requires action roll 6 or more"},
             "Bastion armor (artefact)":{desc: "use to gain def equal to your ap, requires more than 2 ap"},
             "Ruby medallion (artefact)" :{sesc: "use to deal damage equal to your ap multiplied by power, then reduce power by 1"},
             "Axe of Barion (artefact)" :{desc:"reduce your def by action points value, gain that much power (def can go negative)"},
-            "Static blade (artefact)" :{desc: "use to increase power by 2, requires you to roll max value for your action roll"},
 
             //Misc
-            "boots"         :{desc: "use to skip your turn and save half of your action points for the next turn."},
             
 
             //Old system
@@ -138,9 +143,7 @@
             "halberd"       :{desc: "deals 1 extra damage per turn where you haven't dealt damage"}, 
             "claymore"      :{desc: "deals 10 extra damage, roll dice before attack, reduce damage by the roll value"},
 
-            //cc
-            // "morgenstern"   :{desc: "first hit with this weapon will silence the target"},
-            // "mace"          :{desc: 'first hit with this weapon will stun the target'},
+    
 
             //dot
             // "poisoned blade":{desc: 'apply 1 poison on hit'},
