@@ -100,65 +100,77 @@
         "weapons":{
             //AP system
             //High dice
-            "iron sword"    :{desc: "use to deal damage equal to your action points"},
-            "iron shield"   :{desc: "use to block damage equal to your action points"},
-
+            "iron sword"      :{desc: "use to deal damage equal to your action points"},
+            "iron mallet"     :{desc: "use to reduce enemy def by action points value (def can't go negative), requires action roll 1 or 2."},//???
+            "iron shield"     :{desc: "use to reduce incoming damage by your action points"},
+            
             //Low dice
-            "iron mace"     :{desc: "use to stun target if your action poits are 1 or 2"},
-            "iron warbanner":{desc: "use to gain def equal to your ap, requires more than 2 ap"},
+            "knights shiels"  :{desc: "use to reduce incoming damage by 50%, requires action roll 1 or 2"},
+            "Poisoned spike"  :{desc: "reduce enemy action point dice by 2 until the end of the fight, requires roll 1 or 2."},
+            "iron mace (mace)":{desc: "use to stun target if your action points are 1 or 2"},
+            "star mace (mace)":{desc: "use as an extra action to swap your ap with enemy, requires roll 1 or 2"},
+            
+            //Good
+            "Tower shield" :{desc: "use to pick a number between 1 and 6, reduce incoming damage and next turns action roll by that value"},
+            
+            //artefact
+            "Hammer of Kanut (artefact)" :{desc: "use to deal 2 dmg, then reduce target def by that value (def can go negative), requires action roll 6 or more"},
+            "Bastion armor (artefact)":{desc: "use to gain def equal to your ap, requires more than 2 ap"},
+            "Ruby medallion (artefact)" :{sesc: "use to deal damage equal to your ap multiplied by power, then reduce power by 1"},
+            "Axe of Barion (artefact)" :{desc:"reduce your def by action points value, gain that much power (def can go negative)"},
+            "Static blade (artefact)" :{desc: "use to increase power by 2, requires you to roll max value for your action roll"},
 
             //Misc
             "boots"         :{desc: "use to skip your turn and save half of your action points for the next turn."},
             
 
             //Old system
-            "sword"         :{desc: 'attacks with this weapon deal 1 more damage'},
-            "flail"         :{desc: "deals 1 more damage per different item that you used"},
-            "war axe"       :{desc: "deals 1 more damage per empty non-bag item slot"},
-            "chained blade" :{desc: "oh hit roll d6, if non-bag slot matching the roll has a weapon in it, use that weapon as an extra action"},
+            // "sword"         :{desc: 'attacks with this weapon deal 1 more damage'},
+            // "flail"         :{desc: "deals 1 more damage per different item that you used"},
+            // "war axe"       :{desc: "deals 1 more damage per empty non-bag item slot"},
+            // "chained blade" :{desc: "oh hit roll d6, if non-bag slot matching the roll has a weapon in it, use that weapon as an extra action"},
 
             //multistrike
-            "dagger pair"   :{desc: 'hits twice'},
-            "three blades"  :{desc: "hits three times, hits can't deal more than 1 dmg"},
+            // "dagger pair"   :{desc: 'hits twice'},
+            // "three blades"  :{desc: "hits three times, hits can't deal more than 1 dmg"},
 
             //dmg scaling
             "halberd"       :{desc: "deals 1 extra damage per turn where you haven't dealt damage"}, 
             "claymore"      :{desc: "deals 10 extra damage, roll dice before attack, reduce damage by the roll value"},
 
             //cc
-            "morgenstern"   :{desc: "first hit with this weapon will silence the target"},
-            "mace"          :{desc: 'first hit with this weapon will stun the target'},
+            // "morgenstern"   :{desc: "first hit with this weapon will silence the target"},
+            // "mace"          :{desc: 'first hit with this weapon will stun the target'},
 
             //dot
-            "poisoned blade":{desc: 'apply 1 poison on hit'},
+            // "poisoned blade":{desc: 'apply 1 poison on hit'},
 
             //debuff    
             "poisoned claw" :{desc: 'reduce target power by 1 on hit. Can reduce power below 0.'},
-            "hammer"        :{desc: "reduce target def by 1 on hit. Can reduce def below 0"},
-            "black niddle"  :{desc: "execute targets below 25% life, loose 1 life"},
+            // "hammer"        :{desc: "reduce target def by 1 on hit. Can reduce def below 0"},
             
             //aoe
             "axe"           :{desc: "hits also damage adjacent enemies"}, //do more aoe checks
             
             //ranged
-            "bow"           :{desc: "avoid melee damage when you attack with this"},
-            "long bow"      :{desc: "roll d4 before the combat, long bow deals damage equal to your roll"},
-            "elven bow"     :{desc: "avoid attacks when you use this during first two combat turns, your def is set to 1"},
-            "x-bow"         :{desc: "attacks with this weapon ignore def"},
+            // "bow"           :{desc: "avoid melee damage when you attack with this"},
+            // "long bow"      :{desc: "roll d4 before the combat, long bow deals damage equal to your roll"},
+            // "elven bow"     :{desc: "avoid attacks when you use this during first two combat turns, your def is set to 1"},
+            // "x-bow"         :{desc: "attacks with this weapon ignore def"},
             
             //magic
-            "wooden staff"  :{desc: "Rrcover 1 power on hit"},
-            "iron staff"    :{desc: "recover 2 power on hit, deal no dmg for two turns"},
+            // "wooden staff"  :{desc: "Rrcover 1 power on hit"},
+            // "iron staff"    :{desc: "recover 2 power on hit, deal no dmg for two turns"},
             
             //fire dmg
-            "torch"         :{desc: "on hit, set enemy on fire"},
+            // "torch"         :{desc: "on hit, set enemy on fire"},
             
             //???
-            "blood cleaver"  :{desc: "on first hit, target looses half of their life"},
-            "sacrificial knife":{desc: "Pay 1 life to attack. Execute target if it's below 25% life"},
-            "odd blade"      :{desc:"On hit roll dice, during next turn item in the matching slot can be used as an extra action"},
-            "odd pickaxe"    :{desc:"If you kill enemy with this, it drops a jewel"},
-            "odd mace"       :{desc:"On hit swap power with def"}
+            // "blood cleaver"  :{desc: "on first hit, target looses half of their life"},
+            // "sacrificial knife":{desc: "Pay 1 life to attack. Execute target if it's below 25% life"},
+            // "odd blade"      :{desc:"On hit roll dice, during next turn item in the matching slot can be used as an extra action"},
+            // "odd pickaxe"    :{desc:"If you kill enemy with this, it drops a jewel"},
+            // "odd mace"       :{desc:"On hit swap power with def"}
         },
 
         //Offhands
@@ -167,20 +179,20 @@
             
 
             //Old system
-            "shield"       :{desc:'use to reduce incomming damage by 50%'},
-            "wooden shiled":{desc:'use to reduce incoming damage by 3'},
-            "great shiled" :{desc:'use to reduce incoming dmg by 50%, all enemies target you'},
-            "silver shield":{desc:'use to reduce incoming gmb by 2, cleanse yourself'},
-            "arcane shield":{desc:'use to reduce incomming damage by 50%, recover 1 power if you have 0'},
-            "buckler"      :{desc:'use to roll dice on use, if roll is less than 11 this item redirects attacks back at the enemy'},
-            "war shield"   :{desc:'use it to stun the target, next turn you deal no damage'},
+            // "shield"       :{desc:'use to reduce incomming damage by 50%'},
+            // "wooden shiled":{desc:'use to reduce incoming damage by 3'},
+            // "great shiled" :{desc:'use to reduce incoming dmg by 50%, all enemies target you'},
+            // "silver shield":{desc:'use to reduce incoming gmb by 2, cleanse yourself'},
+            // "arcane shield":{desc:'use to reduce incomming damage by 50%, recover 1 power if you have 0'},
+            // "buckler"      :{desc:'use to roll dice on use, if roll is less than 11 this item redirects attacks back at the enemy'},
+            // "war shield"   :{desc:'use it to stun the target, next turn you deal no damage'},
 
-            "War banner"   :{desc:'on first use, allies gain 1 power.'},
-            "war horn"     :{desc:'On 1st use, allies gain 1 def, all enemies target you'},
-            "talisman"     :{desc:'skip turn, for the next two turns gain 2 life when you attack'},
-            "cursed skull" :{desc:'choose a lesser undead, while you have the skull it becomes your servant'},
-            "crystal ball" :{desc:'roll dice on use, if roll is below 11 gain 2 power, else loose 1 power'},
-            "mirror shield":{desc:'On use reflect spell back at caster, roll dice, if 1 mirror shield shatters'},
+            // "War banner"   :{desc:'on first use, allies gain 1 power.'},
+            // "war horn"     :{desc:'On 1st use, allies gain 1 def, all enemies target you'},
+            // "talisman"     :{desc:'skip turn, for the next two turns gain 2 life when you attack'},
+            // "cursed skull" :{desc:'choose a lesser undead, while you have the skull it becomes your servant'},
+            // "crystal ball" :{desc:'roll dice on use, if roll is below 11 gain 2 power, else loose 1 power'},
+            // "mirror shield":{desc:'On use reflect spell back at caster, roll dice, if 1 mirror shield shatters'},
             "magic book"   :{desc:'pay 5 points of magic trait to unveil a spell',name: `book of ${rarr(magicSchools)}`, type: 'magic book'}
         },
 
@@ -224,86 +236,86 @@
 
 
             //Mage
-            "Silk robe"     :{desc:"Gain 1 power, loose 3 max life", },
-            "Silk cape"     :{desc:"Gain 1 life per power after you canst a spell", },
-            "Silk hat"      :{desc:"Gain 15 magic trait, -3 max life", },
-            "Silk gloves"   :{desc:"You can use one scroll as an extra action during the combat", },
-            "Silk boots"    :{desc:"Restore 2 life after you use a scroll", },
-            "Silk pants"    :{desc:"When you uncover a spell in the spell book, you can choose from two options. -1 def", },
-            "Silk belt"     :{desc:"Gain 2 power, your weapons deal 3 less damage", },
+            "Silk robe"            :{desc:"Gain 1 power, loose 3 max life", },
+            "Silk cape"            :{desc:"Gain 1 life per power after you canst a spell", },
+            "Silk hat"             :{desc:"Gain 15 magic trait, -3 max life", },
+            "Silk gloves"          :{desc:"You can use one scroll as an extra action during the combat", },
+            "Silk boots"           :{desc:"Restore 2 life after you use a scroll", },
+            "Silk pants"           :{desc:"When you uncover a spell in the spell book, you can choose from two options. -1 def", },
+            "Silk belt"            :{desc:"Gain 2 power, your weapons deal 3 less damage", },
 
-            "Archmage west" :{desc:"Your spells now cost magic trait instead of power"},
-            "Archmage cape" :{desc:"+3 pwoer, your weapons gain no damage from power"},
-            "Archmage gloves":{desc:""},
-            "Pointy hat"    :{desc:"You can cast two spells per turn", },
+            "Archmage west"        :{desc:"Your spells now cost magic trait instead of power"},
+            "Archmage cape"        :{desc:"+3 pwoer, your weapons gain no damage from power"},
+            "Archmage gloves"      :{desc:""},
+            "Pointy hat"           :{desc:"You can cast two spells per turn", },
 
             //Healer
-            "Crown"         :{desc:"Gain 5 Holy magic, -2 life", },
-            "Purple robe"   :{desc:"Healing spells you cas heal for 1 more", },
-            "Cloth belt"    :{desc:"Gain 1 power after you restored 5 life to other characters", },
-            "Scale armor"   :{desc:"Your spells now cost Def instead of Power", },
+            "Crown"                :{desc:"Gain 5 Holy magic, -2 life", },
+            "Purple robe"          :{desc:"Healing spells you cas heal for 1 more", },
+            "Cloth belt"           :{desc:"Gain 1 power after you restored 5 life to other characters", },
+            "Scale armor"          :{desc:"Your spells now cost Def instead of Power", },
 
             //Utility
-            "Woolen cloak"  :{desc:"Reduce magic damage by 1", },
-            "Purple robe"   :{desc:"5 to persuasion and charisma", },
+            "Woolen cloak"         :{desc:"Reduce magic damage by 1", },
+            "Purple robe"          :{desc:"5 to persuasion and charisma", },
         },
 
         //Consumables
         "consumable":{
-            "healing potion"      :{desc: `consume to restores ${refVal * 2} life`},
-            "fresh water"         :{desc: `consume to restores 1 power`},
+            "healing potion"       :{desc: `consume to restores ${refVal * 2} life`},
+            "fresh water"          :{desc: `consume to restores 1 power`},
             
             //util
-            "ale"                 :{desc: `consume to make your next 3 out of combat rolls are either 1 or 20.`},
-            "bottle with poison"  :{desc: `contains poison`},
-            "smoke bomb"          :{desc: `explodes when thrown creating a 3 square meter cloud of smoke`},
+            "ale"                  :{desc: `consume to make your next 3 out of combat rolls are either 1 or 20.`},
+            "bottle with poison"   :{desc: `contains poison`},
+            "smoke bomb"           :{desc: `explodes when thrown creating a 3 square meter cloud of smoke`},
             
             //dice manipulation
-            "small crystal"       :{desc: `consume to add d6 to your next dice roll`},
-            "crystal"             :{desc: `consume to add d10 to your next dice roll`},
+            "small crystal"        :{desc: `consume to add d6 to your next dice roll`},
+            "crystal"              :{desc: `consume to add d10 to your next dice roll`},
             // "large crystal"       :{desc: `consume to add d20 to your next dice roll`},
-            "small jewel"         :{desc: `consume to roll d4 instead of default dice for your next dice roll`},
-            "jewel"               :{desc: `consume to roll d10 instead of default dice for your next dice roll`},
+            "small jewel"          :{desc: `consume to roll d4 instead of default dice for your next dice roll`},
+            "jewel"                :{desc: `consume to roll d10 instead of default dice for your next dice roll`},
             // "large jewel"         :{desc: `consume to roll d20 instead of default dice for your next dice roll`},
-            "broken coin"         :{desc: `consume to roll d2 instead of default dice for your next dice roll`},
+            "broken coin"          :{desc: `consume to roll d2 instead of default dice for your next dice roll`},
             
             //char-prog
-            "Art book"            :{desc: `Unveil 3 random passives, add 1 to your character.`},
+            "Art book"             :{desc: `Unveil 3 random passives, add 1 to your character.`},
             
             //multi hit
-            "weapon chain"        :{desc:"your next wepon attack hits 3 times, hits deal 1 damage"},
+            "weapon chain"         :{desc:"your next wepon attack hits 3 times, hits deal 1 damage"},
             
             //aoe
-            "gas bomb"            :{desc: `applies 1 poison to all targets in the area.`},
-            "pocket bomb"         :{desc:"deal 2 damage to all enemies"},
-            "frost nova scroll"   :{desc:"consume to stun all enemeis and players"},
+            "gas bomb"             :{desc: `applies 1 poison to all targets in the area.`},
+            "pocket bomb"          :{desc:"deal 2 damage to all enemies"},
+            "frost nova scroll"    :{desc:"consume to stun all enemeis and players"},
 
             //bow ench
-            "burning arrow"       :{desc:"consume to make your next bow or x-bow attack deal fire damage"},
+            "burning arrow"        :{desc:"consume to make your next bow or x-bow attack deal fire damage"},
 
-            "Defence scroll"      :{desc:"Consume to gain 2 def"},
-            "Scroll of fireball"  :{desc:"Deal 3 fire damage to target"},
-            "Scroll of cleansing" :{desc:"Remove all positive and negative effects from the target"},
-            "Scroll of shield"    :{desc:"Reduce all incoming damage to zero during this turn"},
-            "Scroll of mirror"    :{desc:"Reflect enemy action"},
-            "Scroll of confusion" :{desc:"Randomply swap characters life, power, and def"},
-            "Scroll of action"    :{desc:"Next turn you gain an extra action"},
+            "Defence scroll"       :{desc:"Consume to gain 2 def"},
+            "Scroll of fireball"   :{desc:"Deal 3 fire damage to target"},
+            "Scroll of cleansing"  :{desc:"Remove all positive and negative effects from the target"},
+            "Scroll of shield"     :{desc:"Reduce all incoming damage to zero during this turn"},
+            "Scroll of mirror"     :{desc:"Reflect enemy action"},
+            "Scroll of confusion"  :{desc:"Randomply swap characters life, power, and def"},
+            "Scroll of action"     :{desc:"Next turn you gain an extra action"},
 
-            "Scroll of onion"     :{desc:"items in yout bag treated as equipped"},
+            "Scroll of onion"      :{desc:"items in yout bag treated as equipped"},
 
 
             //review
-            "Fortune scroll"      :{desc:"increase your next dice roll by 10"},
-            "Revive scroll"       :{desc:"revive dead character"},
-            "Portal scroll"       :{desc:"opens a temporary portal to a known location"},
-            "Iron skin scroll"    :{desc:"gain 4 def for the next two turns"},
-            "Fire Nova scroll"    :{desc:"deal 1 fire damage to all targets in 5m radius"},
+            "Fortune scroll"       :{desc:"increase your next dice roll by 10"},
+            "Revive scroll"        :{desc:"revive dead character"},
+            "Portal scroll"        :{desc:"opens a temporary portal to a known location"},
+            "Iron skin scroll"     :{desc:"gain 4 def for the next two turns"},
+            "Fire Nova scroll"     :{desc:"deal 1 fire damage to all targets in 5m radius"},
 
-            "Lightwave scroll"    :{desc:"restore 4 life to all characters (allies and enemies)"},
-            "Rage scroll"         :{desc:"next attack gains 1 dmg per missing life"},
-            "orb of chaos"        :{desc:"consume to choose a numeric value on an item and flip a coin, if tails increase it by 1, else reduce it by 1"},
-            "orb of order"        :{desc:"consume to choose an item and flip a coin, if tail add an additional basic property to an item"},
-            "orb of value"        :{desc:"consume to choose a dice on an item, flip a coin, if tails increase the dice by 2, esle reduce it by 2"},
+            "Lightwave scroll"     :{desc:"restore 4 life to all characters (allies and enemies)"},
+            "Rage scroll"          :{desc:"next attack gains 1 dmg per missing life"},
+            "orb of chaos"         :{desc:"consume to choose a numeric value on an item and flip a coin, if tails increase it by 1, else reduce it by 1"},
+            "orb of order"         :{desc:"consume to choose an item and flip a coin, if tail add an additional basic property to an item"},
+            "orb of value"         :{desc:"consume to choose a dice on an item, flip a coin, if tails increase the dice by 2, esle reduce it by 2"},
         },
     
         //Materials & misc
@@ -377,19 +389,31 @@
 
 
     //Enemy calculator
-    let lvl = 2
-    let dmgVal = Math.ceil(rng(refVal) * lvl)
-    let enemyActions
+    // let lvl = 2
+    // let dmgVal = Math.ceil(rng(refVal) * lvl)
+    // let enemyActions
 
     function genEnemyActions(level){
-        if(level ===undefined){level = document.getElementById('eneLvl').value} //Picks val from input
-        let actionRoll = rng(100)
-        let enemyAc = ''
-        console.log(actionRoll);
+        if(level === undefined){level = parseInt(document.getElementById('eneLvl').value)} //Picks val from input
 
-        dmgVal = Math.ceil(rng(refVal/1.5) * level)
+        let enemyAc = ''                               //enemy action string
 
-        enemyActions = {
+        let enemyNameStart = ['Gar', 'Tar', 'Wal', 'Far', 'Duh', 'Ro' ,'Nar', 'Tal', 'Ikr']
+        let enemyNameEnd =   ['talin', 'war', 'barun', 'antoles', 'farhair', 'dox', 'marin', 'volen', 'darion']
+        let enemyName = rarr(enemyNameStart) + rarr(enemyNameEnd)
+        
+        let enemyLife = Math.floor(rng(6 * (level * 0.5), 3 + level))     //life
+        let enemyPower = Math.ceil(rng(level * 0.5, 0))   //power
+        let enemyDef = Math.ceil(rng(level * 0.5, 0))    //def
+
+        let enemyDice = 2 + level                      //dice enemy rolls + lvl
+        let enemyDiceRoll = rng(enemyDice)             //roll value
+
+        let dmgVal = Math.ceil(enemyDiceRoll + enemyPower)
+        
+        let actionRoll = rng(100)                      //roll to pick action
+
+        let enemyActions = {
             "attack":   {rate:1,   desc: `Will attack for ${dmgVal}`},
             "str att":  {rate:1,   desc: `Will crit for ${Math.ceil(dmgVal * 1.5)}`},
             "poi att":  {rate:1,   desc: `Will attack with poison for ${dmgVal}`},
@@ -403,15 +427,15 @@
             "buff":     {rate:1,   desc: `Will use random buff spell`},
             "debuff":   {rate:1,   desc: `Will use random debuff spell`},
             
-            "wrestle":  {rate:1,   desc: `Roll d20 (GM rolls for enemy), who rolls less looses 4 life. you can only counter this with stun`},
+            "wrestle":  {rate:1,   desc: `Roll d20 (GM rolls for enemy), who rolls less looses ${enemyDiceRoll} life. you can only counter this with stun`},
             "recruits": {rate:1,   desc: `Will call reinforcements`},
             
-            // "spell":    {rate:1,   desc: `Will cast a <random spell>`},
-            // "reflect":  {rate:1,   desc: `Will reflect any spell or attack to character that targets this`},
-            // "disarm":   {rate:1,   desc: `Will steal item used against it during the next turn`},
-            // "theft":    {rate:1,   desc: `Will steal random item`},   
-            // "command":  {rate:1,   desc: `Will redirect actions of all enemies on you`},
-            // "consume":  {rate:1,   desc: `Enemy will consume a random consumable from targets inveentory`},
+            "spell":    {rate:1,   desc: `Will cast a <random spell>`},
+            "reflect":  {rate:1,   desc: `Will reflect any spell or attack to character that targets this`},
+            "disarm":   {rate:1,   desc: `Will steal item used against it during the next turn`},
+            "theft":    {rate:1,   desc: `Will steal random item`},   
+            "command":  {rate:1,   desc: `Will redirect actions of all enemies on you`},
+            "consume":  {rate:1,   desc: `Enemy will consume a random consumable from targets inveentory`},
             // "escape":   {rate:1,   desc: `Will escape`},
             // "sepuku":   {rate:1,   desc: `Will deal ${Math.ceil(dmgVal * 2.5)} to character that would kill them`}
         }
@@ -447,8 +471,10 @@
         else {
             enemyAc = enemyActions.attack.desc
         }
-        console.log(enemyAc);
-        document.getElementById('enemy').innerHTML = `Enemy (Hp: 0/0 | Power: 0/0 | Def 0/0)<br> Rolled d6 for 0 action points &rarr;  ${enemyAc}.`
+
+        document.getElementById('enemy').innerHTML = 
+        `**${enemyName} (Level ${level})** :heart: ${enemyLife} / :zap: ${enemyPower} / :shield: ${enemyDef}<br>
+         Rolled d${enemyDice} for ${enemyDiceRoll} action points &rarr; ${enemyAc}`
     }
 </script>
 
